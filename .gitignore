@@ -1,0 +1,6 @@
+# Virtual environment
+venv/
+
+# Data (large/untracked files)
+Rock_Identification_Poject/Input_Resouces/rock_dataset/
+
