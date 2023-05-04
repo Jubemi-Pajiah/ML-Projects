@@ -3,4 +3,20 @@ venv/
 
 # Data (large/untracked files)
 Rock_Identification_Poject/Input_Resouces/rock_dataset/
+Rock_Identification_Poject/Outputs/rock_dataset_clean/
+Rock_Identification_Poject/Outputs/rock_dataset_split/
 
+# Model checkpoints
+*.h5
+*.keras
+SavedModel_RockClassifier/
+rock_classifier_multitask_savedmodel/
+
+# VS Code
+.vscode/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
