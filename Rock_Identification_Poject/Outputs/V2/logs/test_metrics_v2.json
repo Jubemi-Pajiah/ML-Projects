@@ -1,0 +1,8 @@
+{
+  "loss": 1.905344009399414,
+  "rock_output_accuracy": 0.3901918828487396,
+  "rock_output_loss": 2.366821527481079,
+  "rock_output_top3_acc": 0.5849325060844421,
+  "type_output_accuracy": 0.658137857913971,
+  "type_output_loss": 0.8310562372207642
+}

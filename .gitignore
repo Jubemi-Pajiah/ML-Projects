@@ -5,6 +5,7 @@ venv/
 Rock_Identification_Poject/Input_Resouces/rock_dataset/
 Rock_Identification_Poject/Outputs/rock_dataset_clean/
 Rock_Identification_Poject/Outputs/rock_dataset_split/
+Rock_Identification_Poject/Outputs/V2/models
 
 # Model checkpoints
 *.h5
