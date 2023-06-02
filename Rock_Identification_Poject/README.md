@@ -1,6 +1,6 @@
 # 🪨 Rock Identification Project
 
-This project trains a deep learning model to **classify rocks and minerals** into their specific types (e.g., Basalt, Granite, Coal) and also their broader geological families (**Igneous, Metamorphic, Sedimentary**).  
+This project trains a deep learning model to **classify rocks and minerals** into their specific types (e.g., Basalt, Granite, Coal) and also their broader geological families (**Igneous, Metamorphic, Sedimentary**).  I used over 13,000 images for this model. I was inspired to do this after my first field work exercise in Igarra, Edo State. It's an igneous terrain. The idea is to build a rock detection model to prepare me for my next field work 😂😁🤫.
 
 It includes:
 - Dataset normalization and organization.  
@@ -14,7 +14,7 @@ It includes:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 Rock_Identification_Poject/
@@ -40,7 +40,7 @@ Rock_Identification_Poject/
 
 ---
 
-## ⚙️ Setup
+## Setup
 
 ### 1. Clone repository
 ```bash
@@ -62,7 +62,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🧹 Data Preparation (Step 1–2)
+## Data Preparation (Step 1–2)
 
 - Normalize images (resize to `224x224`, RGB).  
 - Classes with fewer than **30 images** are skipped.  
@@ -71,7 +71,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📦 Data Loading (Step 3)
+## Data Loading (Step 3)
 
 Implemented in **Step3_DataLoader.py**:  
 - Training data augmented with random flips, rotations, zooms, and brightness changes.  
@@ -80,7 +80,7 @@ Implemented in **Step3_DataLoader.py**:
 
 ---
 
-## 🧠 Model Training
+## Model Training
 
 - Backbone: **MobileNetV2** (pretrained on ImageNet).  
 - Two heads:
@@ -98,7 +98,7 @@ Implemented in **Step3_DataLoader.py**:
 
 ---
 
-## 📊 Results (V1)
+## Results (V1)
 
 Example (your run may differ):
 
@@ -120,7 +120,7 @@ Example (your run may differ):
 
 ---
 
-## 💾 Saved Outputs
+## Saved Outputs
 
 After training, you’ll find:
 
@@ -134,7 +134,7 @@ After training, you’ll find:
 - `Outputs/V2/label_maps.json` 
 ---
 
-## 🙌 Credits
+## Credits
 
 - Built with **TensorFlow / Keras**  
 - Dataset: Rocks and Minerals (custom cleaned dataset)  
