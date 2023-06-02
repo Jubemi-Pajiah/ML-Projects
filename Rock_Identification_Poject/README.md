@@ -19,20 +19,23 @@ It includes:
 ```
 Rock_Identification_Poject/
 │
-├── Input_Resouces/         # Rock labels (CSV), Raw images used (ignored in git).
-├── Outputs/                # Cleaned & split dataset (ignored in git).
+├── Input_Resouces/         # Rock labels (CSV), raw images (ignored in git)
+├── Outputs/                
 │   ├── rock_dataset_clean/
-│   └── rock_dataset_split/
+│   ├── rock_dataset_split/
+│   └── V2/                 # All Version 2 artifacts (models, logs, metrics)
 │
-├── config.py                       # Centralized config (paths, hyperparams).
-├── Step1_NormalizeImages.py        # Preprocess raw rock images: resize to uniform size, normalize, rename, and organize them into clean class folders.
-├── Step2_ImageClassification.py    # Generate metadata (CSV of rock labels, class distributions, etc.) and prepare for classification tasks.
-├── Step3_DataLoader.py             # Loads dataset with augmentation.
-├── TrainModel.py                   # Training pipeline (Steps 4–7).
-├── label_maps.json                 # Saved mapping of classes and rock families.
+├── config.py                       # Centralized config (paths, hyperparams)
+├── Step1_NormalizeImages.py        # Normalize images (resize, RGB, clean folders)
+├── Step2_ImageClassification.py    # Generate metadata & class distributions
+├── Step3_DataLoader.py             # Load datasets w/ augmentation
+├── V2_Step3_DataLoader.py          # Load datasets w/ augmentation version 2
+├── TrainModel.py                   # Training pipeline 
+├── V2_TrainModel.py                # Training pipeline version 2
+├── label_maps.json                 # Class/type label mappings
 │
-├── requirements.txt                # Python dependencies.
-└── README.md                       # Project documentation.
+├── requirements.txt                # Dependencies
+└── README.md                       # Project documentation
 ```
 
 ---
@@ -77,7 +80,7 @@ Implemented in **Step3_DataLoader.py**:
 
 ---
 
-## 🧠 Model Training (Step 4–7)
+## 🧠 Model Training
 
 - Backbone: **MobileNetV2** (pretrained on ImageNet).  
 - Two heads:
@@ -103,6 +106,18 @@ Example (your run may differ):
 - **Rock top-3 accuracy**: ~59%  
 - **Rock type accuracy (Igneous, Metamorphic, Sedimentary)**: ~67%  
 
+### Version 2 (V2) – Enhancements  
+- **Augmentation:** stronger (rotation/contrast/brightness).  
+- **Epochs:** increased to **25 (frozen) + 8 (fine-tune)**.  
+- **Unfreezing:** last **80 layers** (vs. 40 in V1).  
+
+**Outcome:**  
+- Rock accuracy (Top-1): **~39%** (slight dip)  
+- Rock accuracy (Top-3): **~58%**  
+- Type accuracy: **~65%**  
+
+*The result dipped slightly, showing that heavier augmentation and longer training don’t always guarantee improvements. V2, however, established a more robust training pipeline and stored outputs in structured folders for reproducibility.*  
+
 ---
 
 ## 💾 Saved Outputs
@@ -113,6 +128,10 @@ After training, you’ll find:
 - `SavedModel_RockClassifier/` → full TF SavedModel (for Serving / TFLite)  
 - `label_maps.json` → maps classes & types for inference  
 
+
+- `Outputs/V2/models/rock_classifier_multitask.keras`  
+- `Outputs/V2/models/SavedModel_RockClassifier_V2/`  
+- `Outputs/V2/label_maps.json` 
 ---
 
 ## 🙌 Credits
