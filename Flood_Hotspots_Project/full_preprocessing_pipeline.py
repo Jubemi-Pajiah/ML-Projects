@@ -5,19 +5,12 @@ import rasterio
 from rasterio.mask import mask
 from rasterio.warp import reproject, Resampling
 import geopandas as gpd
+from config import mask_layer, mask_path, raw_dir, final_dir, target_crs
 
-# ===== Paths / Config =====
-base_dir = "Flood_Hotspots_Project"
-raw_dir  = os.path.join(base_dir, "raw")
-final_dir= os.path.join(base_dir, "final_40m")
 os.makedirs(final_dir, exist_ok=True)
 
-mask_path  = os.path.join(raw_dir, "lagos-ward-floods.gpkg")
-mask_layer = "lagoswards__nigeria_ward_shapefiles__nigeria__ward_boundaries"
 
-target_crs = "EPSG:32631"
-
-# ===== Helpers =====
+# Helpers
 def normalize_array(arr):
     arr = arr.astype("float32")
     valid = np.isfinite(arr)
@@ -95,7 +88,7 @@ def remove_everything_except(keepers):
         if f not in keepers:
             os.remove(fp)
 
-# ===== 0) Load boundary, set reference grid =====
+# 0) Load boundary, set reference grid
 print("📍 Loading boundary & reference grid...")
 gdf = gpd.read_file(mask_path, layer=mask_layer).to_crs(target_crs)
 
@@ -112,13 +105,13 @@ for c in ref_candidates:
 if ref_path is None:
     raise FileNotFoundError("No DEM reference found (dem_40m_norm.tif or dem_40m.tif).")
 
-print(f"✅ Reference grid: {os.path.basename(ref_path)}")
+print(f"Reference grid: {os.path.basename(ref_path)}")
 
-# ===== 1) Rebuild WorldCover (categorical) aligned to DEM grid =====
-print("🌍 Rebuilding WorldCover (categorical)...")
+# 1) Rebuild WorldCover (categorical) aligned to DEM grid
+print("Rebuilding WorldCover (categorical)...")
 wc_raw = glob.glob(os.path.join(raw_dir, "world-cover", "*.tif"))
 if len(wc_raw) == 0:
-    print("⚠️  No world-cover rasters found in raw/world-cover/. Skipping.")
+    print("No world-cover rasters found in raw/world-cover/. Skipping.")
 else:
     # If multiple worldcover tiles, clip+merge in QGIS beforehand; here we assume one tile already clipped to Lagos or a single tile covering it.
     # Clip to boundary first to reduce size
@@ -128,13 +121,13 @@ else:
     align_categorical_to_ref(wc_clip, ref_path, wc_final)
     # Clean temp
     if os.path.exists(wc_clip): os.remove(wc_clip)
-    print("✅ worldcover_40m.tif saved.")
+    print("worldcover_40m.tif saved.")
 
-# ===== 2) Rebuild Population aligned to DEM grid and normalize =====
+# 2) Rebuild Population aligned to DEM grid and normalize
 print("👥 Rebuilding Population (align + normalize)...")
 pop_raw = glob.glob(os.path.join(raw_dir, "pop", "*.tif"))
 if len(pop_raw) == 0:
-    print("⚠️  No population raster found in raw/pop/. Skipping.")
+    print("No population raster found in raw/pop/. Skipping.")
 else:
     pop_clip = os.path.join(final_dir, "pop_clip_deg.tif")
     pop_aligned = os.path.join(final_dir, "lagos_pop_40m.tif")
@@ -157,13 +150,13 @@ else:
     for p in [pop_clip, pop_aligned]:
         if os.path.exists(p): os.remove(p)
 
-    print("✅ lagos_pop_40m_norm.tif saved.")
+    print("lagos_pop_40m_norm.tif saved.")
 
-# ===== 3) Rebuild ALL rainfall rasters aligned & normalized =====
+# 3) Rebuild ALL rainfall rasters aligned & normalized
 print("🌧 Rebuilding CHIRPS rainfall rasters (align + normalize)...")
 rain_raw = sorted(glob.glob(os.path.join(raw_dir, "chirps", "*.tif")))
 if len(rain_raw) == 0:
-    print("⚠️  No CHIRPS rasters in raw/chirps/. Skipping.")
+    print("No CHIRPS rasters in raw/chirps/. Skipping.")
 else:
     for rp in rain_raw:
         base = os.path.splitext(os.path.basename(rp))[0]
@@ -188,11 +181,11 @@ else:
         for p in [clip_p, aligned]:
             if os.path.exists(p): os.remove(p)
 
-        print(f"✅ Saved: {os.path.basename(out_norm)}")
+        print(f"Saved: {os.path.basename(out_norm)}")
 
-print("✅ Rainfall rebuild complete.")
+print("Rainfall rebuild complete.")
 
-# ===== 4) Keep ONLY ML-ready assets =====
+# 4) Keep ONLY ML-ready assets
 print("🧹 Cleaning folder (keep only *_40m_norm.tif + flood_labels_40m.tif + worldcover_40m.tif)...")
 keepers = set()
 
@@ -218,10 +211,10 @@ if os.path.exists(os.path.join(final_dir, "worldcover_40m.tif")):
     keepers.add("worldcover_40m.tif")
 
 remove_everything_except(keepers)
-print("✅ Folder cleaned.")
+print("Folder cleaned.")
 
-# ===== 5) Final verification =====
-print("\n📏 Final verification...")
+# 5) Final verification
+print("\nFinal verification...")
 ref = os.path.join(final_dir, "dem_40m_norm.tif")
 with rasterio.open(ref) as r:
     ref_shape, ref_res = r.shape, r.res
@@ -232,4 +225,4 @@ for f in sorted(os.listdir(final_dir)):
     with rasterio.open(os.path.join(final_dir, f)) as src:
         print(f"{f:35} | Shape OK: {src.shape == ref_shape} | Res OK: {src.res == ref_res}")
 
-print("\n🎯 Done — rainfall saved, population fixed, only ML-ready files remain.")
+print("\nDone — rainfall saved, population fixed, only ML-ready files remain.")
