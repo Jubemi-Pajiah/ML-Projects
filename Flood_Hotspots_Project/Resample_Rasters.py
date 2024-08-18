@@ -2,10 +2,7 @@ import os
 import rasterio
 from rasterio.enums import Resampling
 from tqdm import tqdm
-
-base_dir = "Flood_Hotspots_Project"
-raw_dir = os.path.join(base_dir, "raw")
-out_dir = os.path.join(base_dir, "resampled_40m")
+from config import raw_dir,out_dir
 
 os.makedirs(out_dir, exist_ok=True)
 

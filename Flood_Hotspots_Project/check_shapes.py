@@ -1,8 +1,6 @@
 import os
 import rasterio
-
-norm_dir = "Flood_Hotspots_Project/normalized_40m"
-resamp_dir = "Flood_Hotspots_Project/resampled_40m"
+from config import norm_dir,resamp_dir
 
 # Collect all normalized rasters (DEM, slope, rainfall, population, flood labels)
 raster_paths = [
@@ -20,4 +18,4 @@ for path in raster_paths:
     with rasterio.open(path) as src:
         print(f"{os.path.basename(path):35s} -> shape: {src.height}×{src.width} | res: {src.res}")
 
-print("\n✅ Check complete — compare shapes above.")
+print("\nCheck complete — compare shapes above.")
