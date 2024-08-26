@@ -16,3 +16,5 @@ resamp_dir = "Flood_Hotspots_Project/resampled_40m"
 
 target_crs = "EPSG:32631"
 
+output_dir = os.path.join(base_dir, "predictions/output")
+model_path = os.path.join(base_dir, "outputs", "flood_rf_model.pkl")
