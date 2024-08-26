@@ -7,6 +7,10 @@ Rock_Identification_Poject/Outputs/rock_dataset_clean/
 Rock_Identification_Poject/Outputs/rock_dataset_split/
 Rock_Identification_Poject/Outputs/V2/models
 
+Flood_Hotspots_Project/final_40m/
+Flood_Hotspots_Project/raw/
+Flood_Hotspots_Project/outputs/
+
 # Model checkpoints
 *.h5
 *.keras
