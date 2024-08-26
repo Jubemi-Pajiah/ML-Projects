@@ -5,6 +5,10 @@ This repository contains a complete, reproducible workflow to build a machine-le
 The project focuses on a local-scale proof-of-concept: identifying flood-prone hotspots and producing clear visual outputs for planning and evacuation support.
 
 ---
+## Preview Image
+- ![Flood Risk Probability](assets/Flood%20Risk%20Probability.png)
+
+---
 
 ## 1. Objectives
 
@@ -198,7 +202,6 @@ Interpretation: Rainfall months are strong predictors, which is expected. The mo
 
 Example preview images (from `assets/` or `predictions/output/`):
 
-- ![Flood Risk Probability](assets/Flood%20Risk%20Probability.png)
 - ![Flood Risk - April 2020](assets/Flood%20Risk-%20April%202020.png)
 - ![Flood Risk - April 2021](assets/Flood%20Risk-%20April%202021.png)
 - ![Population Influence Map](assets/Population%20Influence%20Map.png)
