@@ -16,6 +16,10 @@ Flood_Hotspots_Project/outputs/
 *.keras
 SavedModel_RockClassifier/
 rock_classifier_multitask_savedmodel/
+*.tif
+*.gpkg
+*.pkl
+
 
 # VS Code
 .vscode/
