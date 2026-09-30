@@ -41,5 +41,5 @@ Each project folder documents its own steps. Raw rasters and image datasets are 
 
 ## Author
 
-Jubemi Pajiah, software developer and published researcher (hydrogeology and environmental geochemistry).
+Jubemi Pajiah, software developer and published geoscience researcher.
 [jubemi.com](https://jubemi.com) | [LinkedIn](https://www.linkedin.com/in/jubemi-pajiah-626b7323b/) | [Google Scholar](https://scholar.google.com/citations?hl=en&user=z6iMmPgAAAAJ) | info@jubemi.com
